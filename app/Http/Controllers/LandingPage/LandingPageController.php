@@ -35,12 +35,11 @@ class LandingPageController extends Controller
     }
 
     public function doLogin(Request $request) {
-        if(Auth::guard('yeshmeet_lp_participant')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            //dd($email = Auth::guard('yeshmeet_lp_participant'));
-            return 'Deu certo';
-            // return redirect()->route('staffDashboard');
+        if(Auth::guard('yeshmeet_lp_participant')->attempt(['email' => $request->email, 'password' => $request->password,
+        'yeshmeet_customer_id' => $request->yeshmeet_customer_id, 'yeshmeet_event_id' => $request->yeshmeet_event_id,
+        'yeshmeet_lp_id' => $request->yeshmeet_lp_id])) {
+            return redirect()->route('index_lp');
         }
-
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
 
@@ -52,6 +51,11 @@ class LandingPageController extends Controller
     }
 
     /*
+
+    Route::prefix('product')->middleware('auth.member')->group(function () {
+
+
+
     public function verifyEmail(Request $request) {
         if(Staff::where('email', $request->email)->exists()) {
             return response()->json(['message' => 'Já existe uma conta usando este e-mail'], 400);

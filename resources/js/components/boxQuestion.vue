@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm a Chat.
+                        I'm a Box question.
                     </div>
                 </div>
             </div>

@@ -12,6 +12,9 @@
     </div>
     <div class="form-group">
         <input type="password" class="form-control" placeholder="Senha" name="password" required>
+        <input type="number" class="form-control" name="yeshmeet_customer_id"  value="156" hidden>
+        <input type="number" class="form-control" name="yeshmeet_event_id"  value="2"  hidden>
+        <input type="number" class="form-control" name="yeshmeet_lp_id"  value="2"  hidden>
     </div>
     {{--<div class="form-group d-flex justify-content-between align-items-center">--}}
     {{--<div class="custom-control custom-checkbox">--}}
