@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'yeshmeet_lp_participant' => [
+            'driver' => 'session',
+            'provider' => 'yeshmeet_lp_participant'
+        ],
     ],
 
     /*
@@ -64,14 +68,25 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
+        'yeshmeet_lp_participant' => [
+            'driver' => 'database',
+             'table' => 'yeshmeet_lp_participants',
+        ],
+    ],
+/*
+        'yeshmeet_lp_participant' => [
+            'driver' => 'eloquent',
+            'model' => App\Participants\Yeshmeet_lp_participant::class,
+        ],
+*;
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+    
     ],
 
-    /*
+    
     |--------------------------------------------------------------------------
     | Resetting Passwords
     |--------------------------------------------------------------------------

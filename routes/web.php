@@ -21,3 +21,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/sent', 'SentmsgController@post')->name('sent');
+
+
+/* rota de paticipantes*/
+Route::get('landingpage/login', 'LandingPage\LandingPageController@showLogin')->name('login_lp');
+Route::post('landingpage/login', 'LandingPage\LandingPageController@doLogin')->name('do_login_lp');
