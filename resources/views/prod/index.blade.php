@@ -5,13 +5,18 @@
 
 Prod
 <br>
-<div id="loader"></div>
 
-<div style="display:none;" id="myDiv" class="animate-bottom">
+    
+    
     <div id="yeshmeet">
-        <prod></prod>
+        <prod   
+        @if(auth()->check())
+            :user="{{ $user }}"
+        @endif
+        
+        
+          ></prod>
     </div>
-</div>
 
 
 

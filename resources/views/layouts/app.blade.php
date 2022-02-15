@@ -81,20 +81,6 @@
 
         
     </div>
-    <script>
-        var myVar;
-              
-        
-        function showPage() {
-          document.getElementById("loader").style.display = "none";
-          document.getElementById("myDiv").style.display = "block";
-        }
-
-        function showLoader() {          
-          console.log(document.getElementById("myDiv"));
-            document.getElementById("myDiv").style.display = "none" ;
-          document.getElementById("loader").style.display = "block";
-        }
-    </script>
+   
 </body>
 </html>

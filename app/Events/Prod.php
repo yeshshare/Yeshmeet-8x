@@ -22,6 +22,7 @@ class Prod implements ShouldBroadcast
     public function __construct($prod)
     {
         //
+        
         $this->prod = $prod;
     }
 
@@ -32,11 +33,10 @@ class Prod implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('prod');
+        return new Channel('prod_'.$this->prod->id);
     }
     public function broadcastWith()
     {
-        //dd($this->user);
         return ['prod' => $this->prod];
     }
 }

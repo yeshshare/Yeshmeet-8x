@@ -12,8 +12,12 @@ use App\Events\Prod;
 
 class ProdController extends Controller
 {
-    public function index($id) {
-        return view('prod.index');
+    public function index($id) {        
+        $prodService = new ProdService();   
+        $prod = $prodService->get($id);
+        $user = auth()->user();
+        //dd($user);
+        return view('prod.index',compact('prod','user'));
     }
 
     public function getProd($id){

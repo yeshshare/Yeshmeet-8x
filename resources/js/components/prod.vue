@@ -1,77 +1,5 @@
-<style >
- #loaderProd {
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     z-index: 1;
-     width: 120px;
-     height: 120px;
-     margin: -76px 0 0 -76px;
-     border: 16px solid #f3f3f3;
-     border-radius: 50%;
-     border-top: 16px solid #3498db;
-     -webkit-animation: spin 2s linear infinite;
-     animation: spin 2s linear infinite;
- }
- 
- @-webkit-keyframes spin {
-     0% {
-         -webkit-transform: rotate(0deg);
-     }
-     100% {
-         -webkit-transform: rotate(360deg);
-     }
- }
- 
- @keyframes spin {
-     0% {
-         transform: rotate(0deg);
-     }
-     100% {
-         transform: rotate(360deg);
-     }
- }
- /* Add animation to "page content" */
- 
- .animate-bottom {
-     position: relative;
-     -webkit-animation-name: animatebottom;
-     -webkit-animation-duration: 1s;
-     animation-name: animatebottom;
-     animation-duration: 1s
- }
- 
- @-webkit-keyframes animatebottom {
-     from {
-         bottom: -100px;
-         opacity: 0
-     }
-     to {
-         bottom: 0px;
-         opacity: 1
-     }
- }
- 
- @keyframes animatebottom {
-     from {
-         bottom: -100px;
-         opacity: 0
-     }
-     to {
-         bottom: 0;
-         opacity: 1
-     }
- }
- 
- #myDivProd {
-     display: none;
-     text-align: center;
- }
-</style>
 <template>
     <div>
-
-
         <div id="loaderProd"></div>
         <div style="display:none;" id="myDivProd" class="animate-bottom">
         <div class="container">
@@ -103,14 +31,14 @@
                     </div>
                 </div>
             </div>
-    </div>
-        
+    </div>        
 </template>
 <script>
     import chat from "./chat.vue";
     import moderatedChat from "./moderatedChat.vue";
     import boxQuestion from "./boxQuestion.vue";
     export default {
+        props: ['user','user_id','user_email','user_name','prod_id'],
         components: {
             chat:chat
             , moderatedChat:moderatedChat
@@ -118,16 +46,16 @@
         },    
         data(){
             return{
-                prod: ""
+                prod: ""                
             }
         },
-        mounted() {
-              
-                    
-             
+        mounted() {           
             console.log('Component mounted.');
             console.log(window.location.origin);
-            let url = window.location.origin + "/prod/getProd/407";
+            //this.user.id = this.user_id;
+            //this.user.name = this.user_name;
+            //this.user.email = this.user_email;            
+            let url = window.location.origin + "/prod/getProd/"+ this.prod_id;
             console.log(url);
             var x = this;
             axios({
@@ -137,13 +65,37 @@
                 responseType: 'json'
             }).then(function (response) {
                 x.prod = response.data;
-                setTimeout(parent.showPage(),2000);
                 document.getElementById("myDivProd").style.display = "block" ;
                 document.getElementById("loaderProd").style.display = "none";
             });
-           
+            console.log("prod_"+ this.prod_id);
+            Echo.join("prod_"+ this.prod_id)
+            .here(users => { this.users = users })
+            .joining(user => this.users.push(user))
+            .leaving(user => _.remove(this.users, user))
+            .listen('Prod', e => {
+                console.log(e)
+            })
+            
+            
+            
+            /*
+            Echo.join('Prod')
+            .here((users) => {
+                //
+                console.log(user.name);
+            })
+            .joining((user) => {
+                console.log(user.name);
+            })
+            .leaving((user) => {
+                console.log(user.name);
+            }); 
+
+            
+           /*
             Echo.channel('prod')
-            /*Echo.channel("'recebida" + result + "'")*/
+            /*Echo.channel("'recebida" + result + "'")
             .listen('Prod',(e) => {
                 document.getElementById("myDivProd").style.display = "none" ;
                 document.getElementById("loaderProd").style.display = "block";
@@ -151,12 +103,14 @@
                 console.log('Acessou');
                 console.log(e);
                 x.prod = e.prod;
+                
                 setTimeout(() => {  
                     document.getElementById("myDivProd").style.display = "block" ;
                     document.getElementById("loaderProd").style.display = "none";
-                }, 2000);                                
+                }, 2000);
+                                              
             });
-
+            */      
         }
     }
 </script>
